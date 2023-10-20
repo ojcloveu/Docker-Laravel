@@ -1,4 +1,5 @@
 <?php
+$config = json_decode(file_get_contents(base_path('config/config.json')), true);
 
 return [
 
@@ -13,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => $config['MAIL_MAILER'],
 
     /*
     |--------------------------------------------------------------------------
@@ -36,11 +37,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => $config['MAIL_HOST'],
+            'port' => $config['MAIL_PORT'],
+            'encryption' => $config['MAIL_ENCRYPTION'],
+            'username' => $config['MAIL_USERNAME'],
+            'password' => $config['MAIL_PASSWORD'],
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -59,7 +60,7 @@ return [
 
         'sendmail' => [
             'transport' => 'sendmail',
-            'path' => '/usr/sbin/sendmail -bs',
+            'path' => env('MAIL_SENDMAIL_PATH', '/usr/sbin/sendmail -t -i'),
         ],
 
         'log' => [
@@ -92,7 +93,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => $config['MAIL_FROM_ADDRESS'],
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 

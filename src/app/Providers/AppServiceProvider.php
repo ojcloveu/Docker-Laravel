@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // app()->bind('first_service_helper', function($app){
+        //     dd("this is my first service container");
+        // });
+
+        // app()->bind('second_service_helper', function($app){
+        //     dd("this is my second service container");
+        // });
+
+        // app()->bind('third_service_helper', function($app){
+        //     dd("this is my third service container");
+        // });
+
+        //Call from hole application
+        //Pattern: app()->make('first_service_helper');
     }
 
     /**
@@ -23,6 +37,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }
