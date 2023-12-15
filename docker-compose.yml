@@ -1,27 +1,27 @@
 version: "3.7"
 services:
-    app:
+    app-crm:
         build: .
-        container_name: app-rooster
+        container_name: app-crm
         volumes:
             - ./src:/var/www
         networks:
-            - cookbooks
+            - reap_network
         environment:
           - COMPOSER_ALLOW_SUPERUSER=1
     
-    nginx:
+    nginx-crm:
         image: nginx:alpine
-        container_name: web-rooster
+        container_name: web-crm
         restart: unless-stopped
         ports:
-            - "8087:80"
+            - "8222:80"
         volumes:
             - ./src:/var/www
             - ./nginx/conf.d/:/etc/nginx/conf.d/
         networks:
-            - cookbooks
+            - reap_network
 
 networks:
-    cookbooks:
-        driver: bridge
+  reap_network:
+    external: true
